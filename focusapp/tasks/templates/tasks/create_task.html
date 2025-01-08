@@ -1,0 +1,52 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <h2>Create a New Task</h2>
+    <!-- Form for creating a new task, but we'll handle submission with JavaScript -->
+    <form id="task-form">
+        <div>
+            <!-- Title input -->
+            <label for="title">Task Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <!-- Description input -->
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+        <button type="submit">Create Task</button>
+    </form>
+    <!-- Provides link back to task_list -->
+    <a href="{% url 'task_list' %}">Back to Task List</a>
+
+    <!-- JavaScript to handle form submission -->
+    <script>
+        document.getElementById('task-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+
+            // Sends a POST request to the API endpoint with the task details entered by the user in the form
+            const response = await fetch('https://supreme-cod-g4qj4ggj657xhvwpp-8000.app.github.dev/api/tasks/tasks/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'  // Add CSRF token if needed
+                },
+                body: JSON.stringify({
+                    title: title,
+                    description: description,
+                    user: {{ user.id }}  // Include the user ID
+                }),
+            });
+
+            if (response.ok) {
+                alert('Task created successfully!');
+                window.location.href = '{% url "task_list" %}';  // Redirect to task list after creation
+            } else {
+                alert('Error creating task');
+            }
+        });
+    </script>
+{% endblock %}

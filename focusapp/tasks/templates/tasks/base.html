@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <!-- Metadata for character set and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Tasks{% endblock %}</title>
+    <!-- Link to the main CSS file for styling -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Use the styles.css -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your ProgressPal</h1>
+        <nav>
+            <ul>
+                <!-- Checks if the user is logged in and displays appropriate links -->
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+                <li><a href="{% url 'task_list' %}">My Tasks</a></li>
+                <li><a href="{% url 'completed_tasks' %}">Completed</a></li>
+                <li><a href="{% url 'task_progress' %}">Progress</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Child templates will "fill in" this block with their specific content -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Display the current year -->
+        <p>&copy; {{ year }} Your ProgressPal</p>
+    </footer>
+</body>
+</html>

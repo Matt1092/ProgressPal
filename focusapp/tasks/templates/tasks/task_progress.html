@@ -1,0 +1,96 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h2>Task Progress</h2>
+
+<!-- Dropdown menu for the Filter Options -->
+<div>
+    <label for="timeFilter">Filter by:</label>
+    <select id="timeFilter">
+        <option value="week" selected>Week</option>
+        <option value="month">Month</option>
+    </select>
+</div>
+
+<!-- Chart Canvas (chart is drawn using the Chart.js library) -->
+<canvas id="progressChart" width="400" height="200"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    async function fetchAndRenderChart(filter = 'week') {
+        const url = `/tasks/task_progress_data/?filter=${filter}`;
+
+        const response = await fetch(url, { method: 'GET' });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Fetched Data:', data);  // Debugging statement
+            const ctx = document.getElementById('progressChart').getContext('2d');
+
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+
+            window.myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.dates,
+                    datasets: [
+                        { label: 'Tasks Completed', data: data.completed, borderColor: 'green', fill: false },
+                        { label: 'Tasks Created', data: data.created, borderColor: 'blue', fill: false }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: `Task Completion and Creation (${filter})` }
+                    },
+                    scales: {
+                        x: { display: true, title: { display: true, text: 'Date' } },
+                        y: { display: true, title: { display: true, text: 'Task Count' } }
+                    }
+                }
+            });
+        } else {
+            console.error('Failed to fetch data:', response.statusText);
+        }
+    }
+
+    // Handles the completion of a task
+    async function completeTask(event, taskId) {
+        event.preventDefault();
+        const form = event.target;
+        const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        const response = await fetch(`/tasks/complete/${taskId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            }
+        });
+
+        if (response.ok) {
+            alert('Task marked as complete');
+            fetchAndRenderChart(document.getElementById('timeFilter').value);  // Refresh the chart
+        } else {
+            console.error('Failed to complete task:', response.statusText);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterSelect = document.getElementById('timeFilter');
+        fetchAndRenderChart(filterSelect.value);
+
+        filterSelect.addEventListener('change', function () {
+            fetchAndRenderChart(this.value);
+        });
+
+        document.querySelectorAll('.complete-task-form').forEach(form => {
+            form.addEventListener('submit', function (event) {
+                const taskId = this.dataset.taskId;
+                completeTask(event, taskId);
+            });
+        });
+    });
+</script>
+{% endblock %}

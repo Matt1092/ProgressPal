@@ -1,0 +1,22 @@
+{% extends "accounts/main.html" %}  <!-- Extend the main template -->
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+<!-- Creates a form that submits data using the HTTP POST method -->
+<form method="POST">
+    <!-- Adds a CSRF token to the form for security (ensuring form submissions come from authorized users) -->
+    {% csrf_token %}
+    <!-- Renders the form fields in paragraph tags (saves from manually writing the input fields) -->
+    {{ form.as_p }}
+    <!-- When button clicked, form data is sent to server for processing -->
+    <button type="submit">Login</button>
+</form>
+<!-- Add a link to registration page if user doesn't have an account -->
+<p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+{% endblock %}
+
+{% block extra_content %}
+<!-- Intentionally left empty so app description is only in main.html -->
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h2>My Tasks</h2>
+<!-- Display a list of the current tasks -->
+<ul id="task-list">
+    <!-- Tasks will be dynamically inserted here by JavaScript -->
+</ul>
+<!-- Link provided to the create_task page -->
+<a href="{% url 'create_task' %}">Create New Task</a>
+
+<!-- JavaScript to fetch tasks and handle task completion -->
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Fetches tasks from the API, filters them by user and completion status, and displays them in the list
+    async function fetchTasks() {
+        const userId = {{ user.id }};
+        const csrftoken = getCookie('csrftoken');
+
+        const response = await fetch(`https://supreme-cod-g4qj4ggj657xhvwpp-8000.app.github.dev/api/tasks/tasks/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        });
+
+        if (response.ok) {
+            const tasks = await response.json();
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+
+            tasks.forEach(task => {
+                if (task.user === userId && !task.completed) {
+                    const taskItem = document.createElement('li');
+                    taskItem.innerHTML = `
+                        <strong>${task.title}</strong> - ${task.description}
+                        <form onsubmit="completeTask(event, ${task.id})" style="display: inline;">
+                            <button type="submit">Complete</button>
+                        </form>
+                    `;
+                    taskList.appendChild(taskItem);
+                }
+            });
+        } else {
+            console.error('Failed to fetch tasks:', response.statusText);
+        }
+    }
+
+    async function completeTask(event, taskId) {
+        event.preventDefault();
+        const csrftoken = getCookie('csrftoken');
+
+        const response = await fetch(`https://supreme-cod-g4qj4ggj657xhvwpp-8000.app.github.dev/api/tasks/tasks/${taskId}/`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({
+                completed: true,
+                completed_at: new Date().toISOString()  // Set the completed_at field
+            })
+        });
+
+        if (response.ok) {
+            alert('Task marked as complete');
+            fetchTasks();
+        } else {
+            console.error('Failed to complete task:', response.statusText);
+        }
+    }
+
+    // Ensures that the fetchTasks function is called when the page loads
+    window.onload = fetchTasks;
+</script>
+{% endblock %}

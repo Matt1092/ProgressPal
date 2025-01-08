@@ -1,0 +1,55 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;  /* Friendly font */
+    background-color: #f0f8ff;         /* Light blue background */
+    color: #333;                       /* Darker text color for readability */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #87ceeb;         /* Light blue header */
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;                  /* Increase header size */
+}
+
+/* Navigation Styles */
+nav {
+    margin-top: 10px;
+}
+
+nav ul {
+    list-style: none;                  /* Remove default list styles */
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;                   /* Horizontal navigation */
+    margin-right: 15px;
+}
+
+nav ul li a {
+    text-decoration: none;             /* Remove underline from links */
+    color: #fff;                       /* White text color for links */
+    padding: 8px 15px;                 /* Add some padding */
+    border-radius: 5px;                /* Rounded corners for buttons */
+    background-color: #4682b4;         /* Button color */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+nav ul li a:hover {
+    background-color: #5f9ea0;         /* Darker blue on hover */
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #87ceeb;         /* Match footer color with header */
+}

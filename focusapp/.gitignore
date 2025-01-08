@@ -1,0 +1,5 @@
+# Database (my project uses Postgres so the default Django db can be included here)
+db.sqlite3
+
+# Environment variables
+.env

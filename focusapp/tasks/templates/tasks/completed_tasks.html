@@ -1,0 +1,64 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <h2>Completed Tasks</h2>
+    <!-- Display a list of the completed tasks -->
+    <ul id="completed-task-list">
+        <!-- Tasks will be dynamically inserted here by JavaScript -->
+    </ul>
+
+    <!-- JavaScript to fetch tasks from the API and filter by user and completion status -->
+    <script>
+        // Function to get the CSRF token from the cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Fetches completed tasks from the API, filters them by user and completion status, and displays them in the list
+        async function fetchCompletedTasks() {
+            const userId = {{ user.id }};  // Pass user ID to the JavaScript
+            const csrftoken = getCookie('csrftoken');  // Get CSRF token
+
+            const response = await fetch(`https://supreme-cod-g4qj4ggj657xhvwpp-8000.app.github.dev/api/tasks/tasks/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                }
+            });
+
+            if (response.ok) {
+                const tasks = await response.json();
+                const taskList = document.getElementById('completed-task-list');
+                taskList.innerHTML = '';  // Clear any existing content
+
+                tasks.forEach(task => {
+                    if (task.completed && task.user === userId) {
+                        const taskItem = document.createElement('li');
+                        taskItem.innerHTML = `
+                            <strong>${task.title}</strong> - ${task.description}
+                            <span style="color: green;">Completed on: ${new Date(task.completed_at).toLocaleString()}</span>
+                        `;
+                        taskList.appendChild(taskItem);
+                    }
+                });
+            } else {
+                console.error('Failed to fetch completed tasks:', response.statusText);
+            }
+        }
+
+        // Ensures that the fetchCompletedTasks function is called when the page loads
+        window.onload = fetchCompletedTasks;
+    </script>
+{% endblock %}

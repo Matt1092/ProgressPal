@@ -62,8 +62,6 @@ ProgressPal is a full-stack web application I developed with Python and Django o
           + **main.html**: Homepage of ProgressPal.
           + **login.html**: Form for user login.
           + **register.html**: Form for user registration.
-      
-
 ### Tasks App
 - **focusapp/tasks**: The tasks app is another core component of our project.
      + **apps.py**: Configures the tasks app in the Django project.

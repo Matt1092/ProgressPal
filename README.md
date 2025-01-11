@@ -5,6 +5,7 @@
 
 ## Description
 ProgressPal is a full-stack web application I developed with Python and Django on the back-end, alongside a PostgreSQL database hosted through AWS. All code was produced through the CS50 Codespaces.
+The intention behind creating ProgressPal stems from my own struggles with procrastination and the desire to help others who face similar challenges. Recognizing that many people struggle with staying productive and tracking their progress, I developed ProgressPal to provide a simple yet effective way to set goals, create tasks, and visually track progress over time. By focusing on small steps each day, ProgressPal aims to help users make consistent improvements and achieve their long-term goals.
 
 ## Prerequisites
 - Python 3.x

@@ -18,6 +18,26 @@ ProgressPal is a full-stack web application I developed with Python and Django o
    git clone <repository-url>
    cd progresspal
    ```
+2. **Create a virtual environment and activate it**:
+   ```bash
+   python -m venv focus
+   source focus/bin/activate   # On Windows use `focus\Scripts\activate`
+   ```
+3. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Run migrations**:
+   ```bash
+   python manage.py migrate
+   ```
+5. **Start the development server**:
+   ```bash
+   python manage.py runserver
+   ```
+
+### Project Structure
+   
 
 
 focus:

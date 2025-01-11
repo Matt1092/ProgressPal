@@ -15,7 +15,7 @@ ProgressPal is a full-stack web application I developed with Python and Django o
 ## Installation
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Matt1092/ProgressPal.git
    cd progresspal
    ```
 2. **Create a virtual environment and activate it**:
@@ -25,6 +25,7 @@ ProgressPal is a full-stack web application I developed with Python and Django o
    ```
 3. **Install dependencies**:
    ```bash
+   cd focusapp
    pip install -r requirements.txt
    ```
 4. **Run migrations**:

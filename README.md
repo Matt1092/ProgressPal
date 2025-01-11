@@ -74,7 +74,7 @@ ProgressPal is a full-stack web application I developed with Python and Django o
      + **api_urls.py**: Defines RESTful API endpoints for task management using Django Rest Framework.
           + **TaskViewSet**: Registered to handle CRUD operations on tasks.
      + **Templates**:
-          + **base.html**: Base structure of the tasks app.
+          ++ **base.html**: Base structure of the tasks app.
           + **completed_tasks.html**: Displays a list of completed tasks.
           + **create_task.html**: Form for creating tasks.
           + **task_list.html**: Displays a list of current tasks.

@@ -36,20 +36,20 @@ ProgressPal is a full-stack web application I developed with Python and Django o
    python manage.py runserver
    ```
 
-### Project Structure
-## Virtual Environment
+## Project Structure
+### Virtual Environment
 - **focus**: This is my dedicated virtual environment for this Django project where all the modules for the project are installed.
-# Main Application Folder
+### Main Application Folder
 - **focusapp**: This is the main folder for this project that contains all the source code needed to run the application.
-# Configuration and Settings
+### Configuration and Settings
 - **focusapp/focusapp**: This subdirectory holds important configuration files for the project.
   + **settings.py**:
        + PostgreSQL database configuration, including the database engine, name, user, password, host (Amazon Web Services), and port number (default 5432 for PostgreSQL).
        + Static file configurations to manage compilation and display of static files.
-# Static Files
+### Static Files
 - **focusapp/static**: This is the static folder which contains our main CSS file. Running python manage.py collectstatic transfers our changes in the static files to the production files folder, used for running the web app.
      + **styles.css**: Contains all the stylistic choices for our HTML files in the accounts and tasks apps' respective templates.
-# Accounts App
+### Accounts App
 - **focusapp/accounts**: The accounts app is a core component of our project.
      + **apps.py**: Configures the accounts app in the Django project.
      + **models.py**: Defines database models for user accounts stored in the PostgreSQL database.
@@ -62,7 +62,7 @@ ProgressPal is a full-stack web application I developed with Python and Django o
           + **main.html**: Homepage of ProgressPal.
           + **login.html**: Form for user login.
           + **register.html**: Form for user registration.
-# Tasks App
+### Tasks App
 - **focusapp/tasks**: The tasks app is another core component of our project.
      + **apps.py**: Configures the tasks app in the Django project.
      + **forms.py**: Defines a TaskForm for creating and validating tasks.

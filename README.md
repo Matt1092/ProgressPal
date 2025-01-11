@@ -39,3 +39,8 @@ ProgressPal is a full-stack web application I developed with Python and Django o
 ### Project Structure
 **Virtual Environment**
 - **focus**: This is my dedicated virtual environment for this Django project where all the modules for the project are installed.
+**Main Application Folder**
+- **focusapp**: This is the main folder for this project that contains all the source code needed to run the application.
+**Configuration and Settings**
+- **focusapp/focusapp**: This subdirectory holds important configuration files for the project.
+- + bruh

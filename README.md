@@ -24,7 +24,12 @@ The intention behind creating ProgressPal stems from my own struggles with procr
    python -m venv focus
    source focus/bin/activate   # On Windows use `focus\Scripts\activate`
    ```
-3. **Create a .env file**:
+3. **Install dependencies**:
+   ```bash
+   cd focusapp
+   pip install -r requirements.txt
+   ```
+4. **Create a .env file**:
    In the root of your project directory, create a .env file and add the following content:
    ```bash
    SECRET_KEY=your_secret_key
@@ -34,16 +39,21 @@ The intention behind creating ProgressPal stems from my own struggles with procr
    DATABASE_HOST=localhost
    DATABASE_PORT=5432
    ```
-4. **Install dependencies**:
+5. **Create the PostgreSQL Database**:
+   Before running migrations, ensure that the database named progresspal is created:
    ```bash
-   cd focusapp
-   pip install -r requirements.txt
+   psql -h localhost -U postgres
    ```
-5. **Run migrations**:
+   In the PostgreSQL prompt, run:
+   ```sql
+   CREATE DATABASE progresspal;
+   ```
+6. **Run migrations**:
    ```bash
    python manage.py migrate
    ```
-6. **Start the development server**:
+   This command will create the necessary tables in the progresspal database.
+7. **Start the development server**:
    ```bash
    python manage.py runserver
    ```

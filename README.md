@@ -1,6 +1,6 @@
 # ProgressPal
 
-## Video Demo
+#### Video Demo
 [![ProgressPal Demo](https://img.youtube.com/vi/k3J9H_JxUsM/0.jpg)](https://youtu.be/k3J9H_JxUsM)
 
 ## Description

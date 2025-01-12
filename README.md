@@ -51,7 +51,8 @@ The intention behind creating ProgressPal stems from my own struggles with procr
 6. **Run migrations**:
    ```bash
    python manage.py migrate
-   ``` This command will create the necessary tables in the progresspal database.
+   ```
+   This command will create the necessary tables in the progresspal database.
 7. **Start the development server**:
    ```bash
    python manage.py runserver

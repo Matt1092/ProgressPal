@@ -17,23 +17,33 @@ The intention behind creating ProgressPal stems from my own struggles with procr
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/Matt1092/ProgressPal.git
-   cd progresspal
+   cd ProgressPal
    ```
 2. **Create a virtual environment and activate it**:
    ```bash
    python -m venv focus
    source focus/bin/activate   # On Windows use `focus\Scripts\activate`
    ```
-3. **Install dependencies**:
+3. **Create a .env file**:
+   In the root of your project directory, create a .env file and add the following content:
+   ```bash
+   SECRET_KEY=your_secret_key
+   DATABASE_NAME=progresspal
+   DATABASE_USER=postgres
+   DATABASE_PASSWORD=your_password
+   DATABASE_HOST=localhost
+   DATABASE_PORT=5432
+   ```
+4. **Install dependencies**:
    ```bash
    cd focusapp
    pip install -r requirements.txt
    ```
-4. **Run migrations**:
+5. **Run migrations**:
    ```bash
    python manage.py migrate
    ```
-5. **Start the development server**:
+6. **Start the development server**:
    ```bash
    python manage.py runserver
    ```
